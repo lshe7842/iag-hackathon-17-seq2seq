@@ -38,8 +38,8 @@ conda install -c anaconda tensorflow
 Install seq2seq
 
 ```
-git clone https://github.com/google/seq2seq.git
-cd seq2seq
+git clone https://github.com/lshe7842/iag-hackathon-17-seq2seq.git
+cd iag-hackathon-17-seq2seq
 pip install -e .
 ```
 
