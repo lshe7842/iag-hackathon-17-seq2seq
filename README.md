@@ -1,36 +1,60 @@
-[![CircleCI](https://circleci.com/gh/google/seq2seq.svg?style=svg)](https://circleci.com/gh/google/seq2seq)
+# Installation on AWS
 
----
+Create an EC2 instance (p2.xlarge) on AWS
 
-**[READ THE DOCUMENTATION](https://google.github.io/seq2seq)**
-
-**[CONTRIBUTING](https://google.github.io/seq2seq/contributing/)**
-
----
-
-A general-purpose encoder-decoder framework for Tensorflow that can be used for Machine Translation, Text Summarization, Conversational Modeling, Image Captioning, and more.
-
-![Translation Model](https://3.bp.blogspot.com/-3Pbj_dvt0Vo/V-qe-Nl6P5I/AAAAAAAABQc/z0_6WtVWtvARtMk0i9_AtLeyyGyV6AI4wCLcB/s1600/nmt-model-fast.gif)
-
----
-
-The official code used for the [Massive Exploration of Neural Machine Translation Architectures](https://arxiv.org/abs/1703.03906) paper.
-
-If you use this code for academic purposes, please cite it as:
+Start up the EC2 instance and ssh to it with your .pem key file
 
 ```
-@ARTICLE{Britz:2017,
-  author          = {{Britz}, Denny and {Goldie}, Anna and {Luong}, Thang and {Le}, Quoc},
-  title           = "{Massive Exploration of Neural Machine Translation Architectures}",
-  journal         = {ArXiv e-prints},
-  archivePrefix   = "arXiv",
-  eprinttype      = {arxiv},
-  eprint          = {1703.03906},
-  primaryClass    = "cs.CL",
-  keywords        = {Computer Science - Computation and Language},
-  year            = 2017,
-  month           = mar,
-}
+ssh -i [path_to_your_key_file] ubuntu@[EC2_instance_ip]
 ```
 
-This is not an official Google product.
+Install Anaconda
+
+```
+wget https://repo.continuum.io/archive/Anaconda3-4.4.0-Linux-x86_64.sh
+```
+```
+bash ./Anaconda3-4.4.0-Linux-x86_64.sh
+```
+
+Create a conda environment for this project
+
+```
+conda create --name=seq2seq python=3.5
+```
+
+Activate this conda env
+
+```
+source activate seq2seq
+```
+
+Install tensorflow
+
+```
+conda install -c anaconda tensorflow
+```
+
+Install seq2seq
+
+```
+git clone https://github.com/google/seq2seq.git
+cd seq2seq
+pip install -e .
+```
+
+*NOTE* You may need to do below steps in order to get seq2seq up and running
+
+https://github.com/google/seq2seq/issues/285
+
+```
+echo "backend : Agg" >> $HOME/.config/matplotlib/matplotlibrc
+```
+
+Verify installation
+
+```
+python -m unittest seq2seq.test.pipeline_test
+```
+
+You should see an OK message at the end
